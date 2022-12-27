@@ -100,4 +100,16 @@ function hit() {
   yourSum += getValue(card);
   yourAceCount += checkAce(card);
   document.getElementById('your-cards').append(cardImg);
+
+  if (reduceAce(yourSum, yourAceCount) > 21) {//check 'A' and change it from 11 to 1
+    canHit = false;
+  }
+}
+
+function reduceAce(playerSum, playerAceCount) {
+  while (playerSum > 21 && playerAceCount > 0) {
+    playerSum -= 10;
+    playerAceCount -= 1;
+  }
+  return playerSum;
 }
