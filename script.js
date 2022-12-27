@@ -69,6 +69,7 @@ function startGame() {
   // console.log(yourSum);
   // console.log(yourAceCount);
   document.getElementById('hit').addEventListener('click', hit);
+  document.getElementById('stay').addEventListener('click', stay);
 }
 
 function getValue(card) {
@@ -104,6 +105,33 @@ function hit() {
   if (reduceAce(yourSum, yourAceCount) > 21) {//check 'A' and change it from 11 to 1
     canHit = false;
   }
+}
+
+function stay() {
+  //show the hidden card
+  document.getElementById('hidden').src = './cards/' + hidden + '.png';
+  //get the final sum of dealer and player
+  dealerSum = reduceAce(dealerSum, dealerAceCount);
+  yourSum = reduceAce(yourSum, yourAceCount);
+  //cant click the hit button after u click the stay button
+  canHit = false;
+  //win conditions
+  let message = '';
+  if (yourSum > 21) {
+    message = 'You Lose';
+  } else if (dealerSum > 21) {
+    message = 'You Win!';
+  } else if (yourSum == dealerSum) {
+    message = 'Tie!';
+  } else if (yourSum > dealerSum) {
+    message = 'You Win!';
+  } else {
+    message = 'You Lose';
+  }
+
+  document.getElementById('dealer-sum').innerText = dealerSum;
+  document.getElementById('your-sum').innerText = yourSum;
+  document.getElementById('result').innerText = message;
 }
 
 function reduceAce(playerSum, playerAceCount) {
